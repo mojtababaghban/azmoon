@@ -1,0 +1,148 @@
+\RequirePackage{qrcode}
+\RequirePackage{tcolorbox}
+\setlength\rightmg{.5cm}
+\setlength\leftmg{.5cm}
+\tcbuselibrary{breakable,skins}
+\tikzstyle{section} = [draw=blue, fill=blue!20, thick, rectangle, rounded corners]
+\tikzstyle{header} = [draw=blue, thick,
+rectangle, rounded corners=2pt, inner sep=3pt, inner ysep=3pt,
+outer sep=3pt, outer ysep=3pt]
+\setlength\headsep{3pt}
+\newcommand{\question@fantasy}[3]{%
+\begin{tcolorbox}[
+	arc=3pt,
+	bicolor,
+	left=1pt,
+	right=1pt,
+	top=1pt,
+	bottom=1pt,
+	boxsep=0pt,
+	colback=white,
+	breakable,
+	before skip=9pt,
+	after skip=2pt,
+	boxrule=1pt,
+	colframe=blue,
+	titlerule=0pt,
+%	bottomtitle=-10pt,
+	toptitle=-9pt,
+	titlerule=0pt,
+	title={%
+		\hspace*{10pt}%
+		\tikz\node[rectangle,fill=white,rounded corners=3pt, draw=blue]{\vphantom{$#3$ نمره}#1};%
+		\hfill%
+		\tikz\node[rectangle,fill=white,rounded corners=3pt, draw=blue]{\rl{$#3$ نمره}};%
+		\hspace*{10pt}
+	},
+	colbacktitle=white,
+	coltitle=black
+	]%
+	#2
+\end{tcolorbox}%
+}
+\newcommand{\section@fantasy}[1]{%
+	\centering\tikz\node [section] (section box){\rl{\textbf{#1}}};%
+	\vspace{-7pt}%
+	\par
+}
+\def\fheader@fantasy{%
+	\large
+	\begin{tcolorbox}[
+		arc=3pt,
+		bicolor,
+		left=1pt,
+		right=1pt,
+		top=1pt,
+		bottom=1pt,
+		boxsep=0pt,
+		colback=white,
+%		breakable,
+		before skip=0pt,
+		after skip=0pt,
+		boxrule=1pt,
+		colframe=blue,
+%		titlerule=0pt,
+		%	bottomtitle=-10pt,
+%		toptitle=-9pt,
+%		titlerule=0pt,
+%		colbacktitle=white,
+%		coltitle=black
+		]%
+%	\begin{tikzpicture}
+%	\setRTL
+%	\node [header] (header box){%
+%		\vbox{%
+%			\hsize=\dimexpr \linewidth-6.8pt\relax
+			\begin{minipage}[t]{\dimexpr .35\linewidth\relax}
+			‎\textbf{نام و نام‌خانوادگی: \student@name}
+			\par
+			‎\textbf{پایه \@grade\ شعبه \@branch}
+			\par
+			\textbf{\school@title\ \@school}
+			\end{minipage}%
+			\begin{minipage}[t]{.3\linewidth}
+			\centering
+			\raisebox{-.8\totalheight}{\includegraphics[width=4cm, height=1.7cm]{logo.jpeg}}
+			\end{minipage}%
+			\begin{minipage}[t]{.35\linewidth}
+			\hfill\textbf{تاریخ ارزشیابی: \exam@date}
+			\par
+			\hfill‎\textbf{زمان پاسخگویی: \answer@time}
+			\par
+			\hfill\textbf{\total{numques} سوال در \pageref{LastPage} صفحه}
+			\end{minipage}%
+%			\vspace{.1cm}\hrule
+%			\vspace{.1cm}
+%			\begin{minipage}[t]{\dimexpr .333\linewidth-6.8pt\relax}
+%			\textbf{\teacher@title: \teacher@name}
+%			\end{minipage}%
+%			\begin{minipage}[t]{.333\linewidth}
+%			\centering
+%			\textbf{نمره:} \rule{1cm}{.5pt} \textbf{از $\strip@pt\totalpoint$}
+%			\end{minipage}%
+%			\begin{minipage}[t]{.333\linewidth}
+%			\hfill
+%			\textbf{رتبه در کلاس:} \rule{1cm}{.5pt} \textbf{از} \rule{1cm}{.5pt}
+%			\end{minipage}%
+%		}
+%	};
+%	\end{tikzpicture}%
+%	\end{tcolorbox}
+	\par%\vspace{-\baselineskip}\hfill
+%	\begin{tcolorbox}%
+%	\setRTL
+%	\node [header] (barcode box){%
+%		\vbox{%
+%			\hsize=\dimexpr \linewidth-6.8pt\relax%
+%	\qrcode[version=1,height=.5cm]{1236548}\hfill
+%			در این قسمت چیزی ننوبسید
+%			\hfill\qrcode[version=1,height=.5cm]{1236548}
+%		}
+%	};%
+	\end{tcolorbox}%
+	\vspace{-\baselineskip}
+}
+\def\mheader@fantasy{%
+	\begin{tikzpicture}
+	\setRTL
+	\node [header] (header box){%
+		\vbox{%
+			\hsize=\dimexpr \linewidth-6.8pt\relax
+			\textbf{نام و نام‌خانوادگی:}\hfill \textbf{صفحه \thepage\ از \pageref{LastPage}}
+		}
+	};
+	\end{tikzpicture}
+	\vspace{-\baselineskip}
+}
+%\def\ffooter@fantasy{%
+%	\begin{tikzpicture}
+%	setRTL
+%	\node [header] (header box){%
+%		\vbox{%
+%			\hsize=\dimexpr \linewidth-6.8pt\relax
+%			\textbf{نام و نام‌خانوادگی:}\hfill \textbf{صفحه \thepage\ از \pageref{LastPage}}
+%		}
+%	};
+%\end{tikzpicture}
+%\vspace{-\baselineskip}
+%}

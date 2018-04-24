@@ -1,0 +1,96 @@
+\RequirePackage[framemethod=TikZ]{mdframed}
+\tikzstyle{section} = [draw=blue, fill=blue!10, thick, rectangle, rounded corners=3pt]
+\tikzstyle{header} = [draw=blue, thick,
+rectangle, rounded corners=3pt, inner sep=3pt, inner ysep=3pt,
+outer sep=3pt, outer ysep=3pt]
+\setlength\headsep{3pt}
+\newcommand{\question@fancy}[3]{%
+	\mdfsetup{%
+		frametitle={%
+			\tikz\node[anchor=east,rectangle,fill=white,rounded corners=3pt, draw=blue]{#1};\hfill
+%			\tikz\node[anchor=east,rectangle,fill=blue!20,rounded corners=3pt]
+%			{\hboxR{نمره\hspace*{.5cm}}};
+			\tikz\node[anchor=east,rectangle,fill=white,rounded corners=3pt, draw=blue]{\rl{$#3$ نمره}};
+%			\tikz\draw[draw=blue!20,fill=blue!20,rounded corners=3pt] (0,0) rectangle (1.2,.6) node[pos=.5]{2 نمره};
+		},
+		frametitlefont=\normalfont,
+		linecolor=blue,
+		linewidth=1pt,
+		topline=true,
+		frametitleaboveskip=-.5cm,
+		frametitlebelowskip=0pt,
+		roundcorner=3pt,
+%		backgroundcolor=green!10,
+		skipabove=1pt,
+		skipbelow=1pt,
+		leftmargin=0pt,
+		rightmargin=0pt,
+		innertopmargin=0pt,
+		innerbottommargin=1pt,
+		innerleftmargin=2pt,
+		innerrightmargin=2pt
+	}
+	\begin{mdframed}%
+		#2%
+	\end{mdframed}%
+}
+\newcommand{\section@fancy}[1]{%
+	\centering\tikz\node [section] (section box){\rl{\textbf{#1}}};%
+	\vspace{-.4cm}%
+	\par
+}
+\def\fheader@fancy{%
+	\large
+	\begin{tikzpicture}
+	\setRTL
+	\node [header] (header box){%
+		\vbox{%
+			\hsize=\dimexpr \linewidth-6.8pt\relax
+			\begin{minipage}[t]{\dimexpr .35\linewidth-6.8pt\relax}
+			‎\textbf{نام و نام‌خانوادگی: \student@name}
+			\par
+			‎\textbf{پایه \@grade\ شعبه \@branch}
+			\par
+			\textbf{\school@title\ \@school}
+			\end{minipage}%
+			\begin{minipage}[t]{.3\linewidth}
+			\centering
+			\raisebox{-.8\totalheight}{\includegraphics[width=4cm, height=1.7cm]{logo.jpeg}}
+			\end{minipage}%
+			\begin{minipage}[t]{.35\linewidth}
+			\hfill\textbf{تاریخ ارزشیابی: \exam@date}
+			\par
+			\hfill‎\textbf{زمان پاسخگویی: \answer@time}
+			\par
+			\hfill\textbf{\total{numques} سوال در \pageref{LastPage} صفحه}
+			\end{minipage}%
+			\vspace{.1cm}\hrule
+			\vspace{.1cm}
+			\begin{minipage}[t]{\dimexpr .333\linewidth-6.8pt\relax}
+			\textbf{\teacher@title: \teacher@name}
+			\end{minipage}%
+			\begin{minipage}[t]{.333\linewidth}
+			\centering
+			\textbf{نمره:} \rule{1cm}{.5pt} \textbf{از $\strip@pt\totalpoint$}
+			\end{minipage}%
+			\begin{minipage}[t]{.333\linewidth}
+			\hfill
+			\textbf{رتبه در کلاس:} \rule{1cm}{.5pt} \textbf{از} \rule{1cm}{.5pt}
+			\end{minipage}%
+		}
+	};
+	\end{tikzpicture}
+	\vspace{-\baselineskip}
+}
+\def\mheader@fancy{%
+	\begin{tikzpicture}
+	\setRTL
+	\node [header] (header box){%
+		\vbox{%
+			\hsize=\dimexpr \linewidth-6.8pt\relax
+			\textbf{نام و نام‌خانوادگی:}\hfill \textbf{صفحه \thepage\ از \pageref{LastPage}}
+		}
+	};
+	\end{tikzpicture}
+	\vspace{-\baselineskip}
+}
