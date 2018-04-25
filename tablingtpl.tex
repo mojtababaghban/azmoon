@@ -20,6 +20,74 @@
 \setlength\numcolwidth{.5cm}
 \setlength\pointcolwidth{.75cm}
 
+\pgfkeys{%
+	/frbox/.cd,
+	width/.code={\boxwidth#1},
+	rightpad/.code={\brightpad#1},
+	leftpad/.code={\bleftpad#1},
+	bottompad/.code={\bbottompad#1},
+	toppad/.code={\btoppad#1},
+	pad/.style={rightpad=#1,leftpad=#1,toppad=#1,bottompad=#1},
+	hpad/.style={rightpad=#1,leftpad=#1},
+	vpad/.style={toppad=#1,bottompad=#1},
+	rightrulewidth/.code={\rightbrulewidth#1},
+	leftrulewidth/.code={\leftbrulewidth#1},
+	toprulewidth/.code={\topbrulewidth#1},
+	bottomrulewidth/.code={\bottombrulewidth#1},
+	rulewidth/.style={rightrulewidth=#1,leftrulewidth=#1,toprulewidth=1,bottomrulewidth=#1},
+	hrulewidth/.style={rightrulewidth=#1,leftrulewidth=#1},
+	vrulewidth/.style={toprulewidth=1,bottomrulewidth=#1},
+}%
+\newcommand{\frbox}[2][{}]{%
+	\newdimen\btoppad%
+	\setlength\btoppad{2pt}%
+	\newdimen\bleftpad%
+	\setlength\bleftpad{2pt}%
+	\newdimen\brightpad%
+	\setlength\brightpad{2pt}%
+	\newdimen\bbottompad%
+	\setlength\bbottompad{2pt}%
+	\newdimen\rightbrulewidth%
+	\rightbrulewidth.4pt%
+	\newdimen\rightbrulewidth%
+	\rightbrulewidth.4pt%
+	\newdimen\leftbrulewidth%
+	\leftbrulewidth.4pt%
+	\newdimen\topbrulewidth%
+	\topbrulewidth.4pt%
+	\newdimen\bottombrulewidth%
+	\bottombrulewidth.4pt%
+	\newdimen\boxwidth%
+	\setlength\boxwidth{\linewidth}%
+	\pgfkeys{/frbox/.cd,#1}%
+	\newbox\innervbox%
+	\setbox\innervbox=\vbox{%
+		\hsize=\dimexpr \boxwidth-\rightbrulewidth-\leftbrulewidth
+		-\leftpad-\brightpad\relax%
+		\linewidth=\hsize%
+		#2%
+	}%
+	\newbox\inhbox%
+	\setbox\inhbox=\hbox to \dimexpr \boxwidth-\rightbrulewidth-\leftbrulewidth\relax{%
+		\hskip\brightpad\box\innervbox\hskip\bleftpad%
+	}%
+	\newbox\invbox%
+	\setbox\invbox=\vbox{%
+		\hsize=\dimexpr \boxwidth-\rightbrulewidth-\leftbrulewidth\relax
+		\vskip\bbottompad\box\inhbox\vskip\bbottompad%
+	}%
+	\newbox\outhbox%
+	\setbox\outhbox=\hbox to \boxwidth{%
+		\vrule width\leftbrulewidth\box\invbox\vrule width\rightbrulewidth%
+	}%
+	\newbox\totalvbox%
+	\setbox\totalvbox=\vbox{%
+		\hsize=\boxwidth%
+		\hrule height\topbrulewidth\box\outhbox\hrule height\bottombrulewidth%
+	}%
+	\box\totalvbox%
+}
+
 \newcommand{\question@tabling}[3]{%
 	\newbox\quesbox%
 	\setbox\quesbox=\vbox{%
@@ -171,127 +239,33 @@
 }
 \def\fheader@tabling{%
 	\large%
-	\newdimen\headcolsep%
-	\headcolsep=2pt%
-	\newdimen\widthfree%
-	\widthfree=\dimexpr \linewidth-2\rulewidth-\leftpad-\rightpad-1cm-2\headcolsep\relax%
-	\newbox\rheadbox%
-	\newbox\cheadbox%
-	\newbox\lheadbox%
-	\newbox\qrbox%
-	\newbox\rowbox%
-	\newbox\headbox%
-	\newbox\qrhbox%
-	\newbox\qrvbox%
-	\newbox\qrrowvbox%
-	\newbox\qrheadbox%
-	\setbox\rheadbox=\vbox{%
-		\hsize=.35\widthfree%
-		\vskip\toppad%
+	\frbox{%
+	\begin{minipage}{.35\linewidth}%
 		‎\textbf{نام و نام‌خانوادگی: \student@name}
 		\par
 		‎\textbf{پایه \@grade\ شعبه \@branch}
 		\par
 		\textbf{\school@title\ \@school}%
-		\vskip\bottompad%
-	}%
-	\setbox\lheadbox=\vbox{%
-		\vskip\toppad%
-		\hsize=.35\widthfree%
+	\end{minipage}%
+	\begin{minipage}{.3\linewidth}%
+		\centering
+		\includegraphics[width=3.5cm, height=1.5cm]{logo.jpeg}
+	\end{minipage}%
+	\begin{minipage}{.35\linewidth}%
 		\hfill\textbf{تاریخ ارزشیابی: \exam@date}
 		\par
 		\hfill‎\textbf{زمان پاسخگویی: \answer@time}
 		\par
 		\hfill\textbf{\total{numques} سوال در \pageref{LastPage} صفحه}%
-		\vskip\bottompad%
+	\end{minipage}%
 	}%
-	\setbox\cheadbox=\vbox{%
-		\hsize=.3\widthfree%
-		\centering
-		\includegraphics[width=3.5cm, height=1.2cm]{logo.jpeg}
-	}%
-		\setbox\qrbox=\vbox to \ht\rheadbox{%
-		\hsize=.5cm%
-		\vskip\toppad%
-		\qrcode[height=.5cm]{786521}%
-		\vfil%
-		\qrcode[height=.5cm]{786521}%
-		\vskip\bottompad%
-	}%
-	\setbox\rowbox=\hbox{%
-		\hskip\rightpad%
-		\copy\qrbox%
-		\hskip\headcolsep%
-		\box\rheadbox%
-		\box\cheadbox%
-		\box\lheadbox%
-		\hskip\headcolsep%
-		\box\qrbox%
-		\hskip\leftpad%
-	}
-	\setbox\headbox=\vbox{%
-		\hrule height\rulewidth%
-		\vrule width\rulewidth%
-		\box\rowbox%
-		\vrule width\rulewidth%
-		\hrule height\rulewidth%
-	}%
-	\setbox\qrhbox=\hbox to \dimexpr\linewidth-2\rulewidth\relax{%
-		\hskip\rightpad%
-		\qrcode[height=.5cm]{786521}\hfill\qrcode[height=.5cm]{786521}%
-		\hskip\leftpad%
-	}%
-	\setbox\qrvbox=\vbox{%
-		\hsize=\dimexpr\linewidth-2\rulewidth\relax%
-		\vskip\toppad%
-		\box\qrhbox%
-		\vskip\bottompad%
-	}
-	\setbox\qrrowvbox=\hbox to \linewidth{%
-		\vrule width\rulewidth%
-		\box\qrvbox%
-		\vrule width\rulewidth%
-	}
-	\setbox\qrheadbox=\vbox{%
-		\hrule height\rulewidth%
-		\box\qrrowvbox%
-		\hrule height\rulewidth%
-	}
-	\box\headbox%
-	\nointerlineskip%
-	\vskip3pt%
-	\vbox{\hdashrule{\linewidth}{\rulewidth}{2pt}}%
-	\nointerlineskip%
-	\vskip3pt%
-	\box\qrheadbox%
-	\nointerlineskip%
-	\vskip-\baselineskip%
+	\nointerlineskip\vskip-\baselineskip%
 }
 \def\mheader@tabling{%
-%	\newbox\headbox%
-%	\newbox\rowbox%
-%	\setbox\rowbox=\hbox to \dimexpr\linewidth-2\rulewidth\relax{%
-%		\hskip\rightpad%
-%		\textbf{نام و نام‌خانوادگی:}\hfill \textbf{صفحه \thepage\ از \pageref{LastPage}}%
-%		\hskip\leftpad%
-%	}%
-%	\setbox\headbox=\vbox{%
-%		\hsize=\dimexpr\linewidth\relax%
-%		\hrule height\rulewidth%
-%		\vrule width\rulewidth%
-%		\box\rowbox%
-%		\vrule width\rulewidth%
-%		\hrule height\rulewidth%
-%	}
-%	\box\headbox\nointerlineskip%
-%	\vskip-\baselineskip%
-	\setlength{\fboxsep}{0pt}
-	\setlength{\fboxrule}{.5pt}
-	\framebox[\linewidth]{%
-%		\vskip\toppad%
-		\hskip\leftpad%
-		\textbf{نام و نام‌خانوادگی:}\hfill \textbf{صفحه \thepage\ از \pageref{LastPage}}%
-		\hskip\rightpad%
-%		\vskip\bottompad%
-	}
+	\frbox{%
+		\textbf{نام و نام‌خانوادگی:}\hfill%
+		\textbf{صفحه \thepage\ از \pageref{LastPage}}%}
+	}%
+	\nointerlineskip%
+	\vskip-\baselineskip%
 }
