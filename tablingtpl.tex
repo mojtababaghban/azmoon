@@ -16,7 +16,7 @@
 \setlength\leftpad{2pt plus 1pt minus 1pt}
 \setlength\toppad{2pt plus 1pt minus 1pt}
 \setlength\bottompad{2pt plus 1pt minus 1pt}
-\setlength\rulewidth{.5pt}
+\setlength\rulewidth{.4pt}
 \setlength\numcolwidth{.5cm}
 \setlength\pointcolwidth{.75cm}
 
@@ -88,6 +88,47 @@
 	\box\totalvbox%
 }
 
+\newcommand{\makequesbox}[4][totalbox]{%
+	\def\totalbox{totalbox}%
+	\def\topbox{topbox}%
+	\def\bottombox{bottombox}%
+	\def\boxtype{#1}%
+	\newbox\rowbox%
+	\setbox\rowbox=\hbox{%
+		\vrule width\rulewidth%
+		\box#4%
+		\vrule width\rulewidth%
+		\hskip\leftpad\box#3\hskip\rightpad%
+		\vrule width\rulewidth%
+		\box#2%
+		\vrule width\rulewidth%
+	}%
+	\newbox\totalquesbox%
+	\setbox\totalquesbox=\vbox{%
+		\kern-\rulewidth%
+		\ifx\boxtype\totalbox%
+			\hrule width\linewidth height\rulewidth%
+		\fi
+		\ifx\boxtype\topbox%
+			\hrule width\linewidth height\rulewidth%
+		\fi
+		\ifx\boxtype\bottombox%
+			\vbox{\hdashrule{\linewidth}{\rulewidth}{2pt}}\nointerlineskip%
+		\fi
+		\box\rowbox%
+		\ifx\boxtype\totalbox%
+			\hrule width\linewidth height\rulewidth%
+		\fi
+		\ifx\boxtype\topbox%
+			\nointerlineskip\hdashrule{\linewidth}{\rulewidth}{2pt}%
+		\fi
+		\ifx\boxtype\bottombox%
+			\hrule width\linewidth height\rulewidth%
+		\fi
+	}%
+	\box\totalquesbox\nointerlineskip%
+}
+
 \newcommand{\question@tabling}[3]{%
 	\newbox\quesbox%
 	\setbox\quesbox=\vbox{%
@@ -109,24 +150,7 @@
 	\newdimen\freespace%
 	\freespace=\dimexpr\pagegoal-\pagetotal-\pageshrink\relax%
 	\ifdim\dimexpr\ht\quesbox+\dp\quesbox+\rulewidth\relax<\freespace%
-		\newbox\rowbox%
-		\setbox\rowbox=\hbox{%
-			\vrule width\rulewidth%
-			\box\pointbox%
-			\vrule width\rulewidth%
-			\hskip\leftpad\box\quesbox\hskip\rightpad%
-			\vrule width\rulewidth%
-			\box\numbox%
-			\vrule width\rulewidth%
-		}%
-		\newbox\totalquesbox%
-		\setbox\totalquesbox=\vbox{%
-			\kern-\rulewidth%
-			\hrule width\linewidth height\rulewidth%
-			\box\rowbox%
-			\hrule width\linewidth height\rulewidth%
-		}%
-		\box\totalquesbox\nointerlineskip%
+		\makequesbox{\numbox}{\quesbox}{\pointbox}%
 	\else%
 		\newdimen\splitpos%
 		\splitpos=\dimexpr\freespace-\rulewidth\relax%
@@ -141,27 +165,10 @@
 			\advance \splitpos -3pt%
 			\ifnum\ifdim\dimexpr\ht\questopbox+\dp\questopbox+2\rulewidth\relax<\freespace 1\else\ifdim\splitpos<3pt 1\else0\fi\fi=1\else%
 		\repeat%
-		\ifdim\dimexpr\ht\questopbox+\dp\questopbox+2\rulewidth\relax>\freespace%
+		\ifdim\dimexpr\ht\questopbox+\dp\questopbox+\rulewidth\relax>\freespace%
 	\eject%
 	\typeout{topbox is \the\ht\questopbox and \the\dp\questopbox and quesbox is \the\ht\quesbox and freespace is \the\freespace}%
-	\newbox\rowbox%
-	\setbox\rowbox=\hbox{%
-		\vrule width\rulewidth%
-		\box\pointbox%
-		\vrule width\rulewidth%
-		\hskip\leftpad\box\quesbox\hskip\rightpad%
-		\vrule width\rulewidth%
-		\box\numbox%
-		\vrule width\rulewidth%
-	}%
-	\newbox\totalquesbox%
-	\setbox\totalquesbox=\vbox{%
-		\kern-\rulewidth%
-		\hrule width\linewidth height\rulewidth%
-		\box\rowbox%
-		\hrule width\linewidth height\rulewidth%
-	}%
-	\box\totalquesbox\nointerlineskip%
+		\makequesbox{\numbox}{\quesbox}{\pointbox}%
 	\else%
 	\typeout{questopbox height is \the\ht\questopbox and \the\dp\questopbox}%
 	\setbox\quesbottombox=\box\cquesbox
@@ -181,42 +188,9 @@
 	\setbox\pointbottombox=\vbox to \ht\quesbottombox{%
 		\hsize=\pointcolwidth\hfil \hfil\vfil%
 	}%
-	\newbox\rowtopbox%
-	\setbox\rowtopbox=\hbox{%
-		\vrule width\rulewidth%
-		\box\pointtopbox%
-		\vrule width\rulewidth%
-		\hskip\leftpad\box\questopbox\hskip\rightpad%
-		\vrule width\rulewidth%
-		\box\numtopbox%
-		\vrule width\rulewidth%
-	}%
-	\newbox\totalquestopbox%
-	\setbox\totalquestopbox\vbox{%
-		\kern-\rulewidth%
-		\hrule width\linewidth height\rulewidth%
-		\box\rowtopbox%
-		\nointerlineskip\hdashrule{\linewidth}{\rulewidth}{2pt}%
-	}%
-	\box\totalquestopbox\nointerlineskip%
+	\makequesbox[topbox]{\numtopbox}{\questopbox}{\pointtopbox}%
 	\eject%
-	\newbox\rowbottombox%
-	\setbox\rowbottombox=\hbox{%
-		\vrule width\rulewidth%
-		\box\pointbottombox%
-		\vrule width\rulewidth%
-		\hskip\leftpad\box\quesbottombox\hskip\rightpad%
-		\vrule width\rulewidth%
-		\box\numbottombox%
-		\vrule width\rulewidth%
-	}%
-	\newbox\totalquesbottombox%
-	\setbox\totalquesbottombox\vbox{%
-		\vbox{\hdashrule{\linewidth}{\rulewidth}{2pt}}\nointerlineskip%
-		\box\rowbottombox%
-		\hrule width\linewidth height\rulewidth%
-	}%
-	\box\totalquesbottombox\nointerlineskip%
+	\makequesbox[bottombox]{\numbottombox}{\quesbottombox}{\pointbottombox}%
 	\fi%
 	\fi%
 }
