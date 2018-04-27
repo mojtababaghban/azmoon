@@ -145,7 +145,7 @@
 	\newbox\pointbox%
 	\setbox\pointbox=\vbox to \ht\quesbox{%
 		\hsize=\pointcolwidth%
-		\vskip\toppad\hfil$#3$\hfil\vskip\bottompad\vfil%
+		\vskip\toppad\hfil\ifx#3\@nnil\else$#3$\fi\hfil\vskip\bottompad\vfil%
 	}%
 	\newdimen\freespace%
 	\freespace=\dimexpr\pagegoal-\pagetotal-\pageshrink\relax%
@@ -182,7 +182,7 @@
 	}%
 	\newbox\pointtopbox%
 	\setbox\pointtopbox=\vbox to \ht\questopbox{%
-		\hsize=\pointcolwidth\vskip\toppad\hfil $#3$\hfil\vskip\bottompad\vfil%
+		\hsize=\pointcolwidth\vskip\toppad\hfil \ifx#3\@nnil\else$#3$\fi\hfil\vskip\bottompad\vfil%
 	}%
 	\newbox\pointbottombox%
 	\setbox\pointbottombox=\vbox to \ht\quesbottombox{%
