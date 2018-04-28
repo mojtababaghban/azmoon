@@ -223,7 +223,13 @@
 	\end{minipage}%
 	\begin{minipage}{.3\linewidth}%
 		\centering
-		\includegraphics[width=3.5cm, height=1.5cm]{logo.jpeg}
+		\IfFileExists{logo.jpg}%
+		{\def\logo{logo.jpg}}%
+		{%
+			\def\logo{nologo.png}%
+			\ClassWarning{azmoon}{logo.jpeg file not exist.}{}%
+		}%
+		\includegraphics[width=3.5cm, height=1.5cm]{\logo}
 	\end{minipage}%
 	\begin{minipage}{.35\linewidth}%
 		\hfill\textbf{تاریخ ارزشیابی: \exam@date}

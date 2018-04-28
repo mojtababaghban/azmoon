@@ -86,7 +86,13 @@ outer sep=3pt, outer ysep=3pt]
 			\end{minipage}%
 			\begin{minipage}[t]{.3\linewidth}
 			\centering
-			\raisebox{-.8\totalheight}{\includegraphics[width=4cm, height=1.7cm]{logo.jpeg}}
+					\IfFileExists{logo.jpg}%
+			{\def\logo{logo.jpg}}%
+			{%
+				\def\logo{nologo.png}%
+				\ClassWarning{azmoon}{logo.jpeg file not exist.}{}%
+			}%
+			\raisebox{-.8\totalheight}{\includegraphics[width=4cm, height=1.7cm]{\logo}}
 			\end{minipage}%
 			\begin{minipage}[t]{.35\linewidth}
 			\hfill\textbf{تاریخ ارزشیابی: \exam@date}
