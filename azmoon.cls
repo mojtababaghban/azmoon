@@ -58,7 +58,9 @@
 
 \LoadClass[\f@ntsize]{article}
 
-\RequirePackage{azmoontools}
+%\RequirePackage{azmoontools}
+\RequirePackage{amsmath}
+\RequirePackage{cancel}
 \RequirePackage{fancyhdr}
 \RequirePackage{enumitem}
 \RequirePackage{totcount}
@@ -370,3 +372,26 @@
 	\endgroup
 	\fi%
 }
+\newcommand\pvector[1]{%
+	\renewcommand{\arraystretch}{.6666}
+	\begin{bmatrix}
+		#1
+	\end{bmatrix}
+}
+\newcommand\strikeoutup[2][]{%
+	\renewcommand{\arraystretch}{.1}
+	\begin{tabular}[b]{@{}c@{}} 
+		#1\\
+		\cancel{#2}
+	\end{tabular}
+	\renewcommand{\arraystretch}{1}
+}
+\newcommand\strikeoutdown[2][]{%
+	\renewcommand{\arraystretch}{.1}
+	\begin{tabular}[t]{@{}c@{}} 
+		\cancel{#2}\\
+		#1
+	\end{tabular}
+	\renewcommand{\arraystretch}{1}
+}
+\newcommand{\strikeout}[2][]{\strikeoutup[#1]{#2}}
