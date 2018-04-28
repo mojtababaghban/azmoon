@@ -58,7 +58,6 @@
 
 \LoadClass[\f@ntsize]{article}
 
-%\RequirePackage{azmoontools}
 \RequirePackage{amsmath}
 \RequirePackage{cancel}
 \RequirePackage{fancyhdr}
@@ -307,6 +306,18 @@
 	}
 	\newcommand{\choiceok}[1]{%
 	\@choice[t]{##1}
+	}
+	\begin{parts}[#1]
+	}
+	{%
+	\end{parts}
+}
+\newenvironment{truefalse}[1][1]{%
+	\newcommand{\itemt}[1]{%
+		\part{\tf[t] ##1}
+	}
+	\newcommand{\itemf}[1]{%
+		\part{\tf[f] ##1}
 	}
 	\begin{parts}[#1]
 	}
