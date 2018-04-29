@@ -3,19 +3,19 @@
 		\leavevmode\marginnote{\fbox{$#3$}}%
 	\fi%
 	\hspace{-.7cm}\makebox[.5cm][l]{#1.}\hspace{.2cm}#2%
-	\vspace{.3\baselineskip}\hrule%
+	\vspace{2pt plus 1pt minus 1pt}\hrule%
 }
 \newcommand{\section@classic}[1]{%
-	\vskip3pt
+	\vskip 2pt plus 1pt minus 1pt
 	\hfil
 	\textbf{#1}
 	\hfil
-	\vskip3pt
+	\vskip 2pt plus 1pt minus 1pt
 	\hrule
 }
 \def\fheader@classic{%
 	\large
-	\hrule\vspace{.1cm}%
+	\hrule\vspace{2pt}%
 	\begin{minipage}[t]{.35\linewidth}
 		‎\textbf{نام و نام‌خانوادگی: \student@name}
 		\par
@@ -53,12 +53,12 @@
 		\hfill
 		\textbf{رتبه در کلاس:} \rule{1cm}{.5pt} \textbf{از} \rule{1cm}{.5pt}
 	\end{minipage}%
-	\vspace{.1cm}
+	\vspace{2pt}
 	\hrule\vspace{-\baselineskip}
 }
 \def\mheader@classic{%
-	\hrule\vspace{.1cm}
+	\hrule\vspace{2pt}
 	\textbf{نام و نام‌خانوادگی:}\hfill \textbf{صفحه \thepage\ از \pageref{LastPage}}
-	\vspace{.1cm}
+	\vspace{2pt}
 	\hrule\vspace{-\baselineskip}
 }
