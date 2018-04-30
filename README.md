@@ -46,4 +46,10 @@
 ```
 
 خروجی:
-![alt text]( "classic template page 1")
+
+![fantasy template page 1](https://raw.githubusercontent.com/mojtababaghban/azmoon/developing/example/fantasy-page-1.png "fantasy template page 1")
+![fantasy template page 2](https://raw.githubusercontent.com/mojtababaghban/azmoon/developing/example/fantasy-page-2.png "fantasy template page 2")
+![tabling template page 1](https://raw.githubusercontent.com/mojtababaghban/azmoon/developing/example/tabling-page-1.png "tabling template page 1")
+![tabling template page 2](https://raw.githubusercontent.com/mojtababaghban/azmoon/developing/example/tabling-page-2.png "tablings template page 2")
+![classic template page 1](https://raw.githubusercontent.com/mojtababaghban/azmoon/developing/example/classic-page-1.png "classic template page 1")
+![classic template page 2](https://raw.githubusercontent.com/mojtababaghban/azmoon/developing/example/classic-page-2.png "classic template page 2")
