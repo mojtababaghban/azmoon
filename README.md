@@ -42,7 +42,7 @@
 ```bash
   git clone https://github.com/mojtababaghban/azmoon.git
   mkdir -p ~/texmf/tex/xelatex
-  cp -r azmoon/source/azmoon ~/texmf/tex/xelate
+  cp -r azmoon/source/azmoon ~/texmf/tex/xelatex
 ```
 ## نمونه سند
 ```tex
