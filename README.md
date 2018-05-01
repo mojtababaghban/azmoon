@@ -39,7 +39,7 @@
 ```cmd
   git clone https://github.com/mojtababaghban/azmoon.git
   mkdir %HOMEPATH%\texmf\tex\xelatex\azmoon
-  copy azmoon\source\azmoon %HOMEPATH%\texmf\tex\xelatex\azmoon
+  copy azmoon\source\azmoon %HOMEPATH%\texmf\tex\xelatex\azmoon\
 ```
 - گنو/لینوکس
 
