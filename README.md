@@ -34,7 +34,12 @@
    - dashrule
 ## نصب
 - ویندوز
-```bash
+
+  برای نصب در ویندوز دستورات زیر را به ترتیب در cmd وارد کنید.
+```cmd
+  git clone https://github.com/mojtababaghban/azmoon.git
+  mkdir %HOMEPATH%\texmf\tex\xelatex
+  coyp azmoon\source\azmoon %HOMEPATH%\texmf\tex\xelatex
 ```
 - گنو/لینوکس
 
