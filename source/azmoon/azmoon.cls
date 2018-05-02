@@ -264,6 +264,11 @@
 	\draw (0,0) circle (#1) node[pos=.5] {\ifanswermode \color{\answer@color} #2 \fi};
 	\end{tikzpicture}%
 }%
+\newcommand{\fillinrec}[2][.5cm]{%
+	\begin{tikzpicture}[baseline={([yshift=-.9ex]current bounding box.center)}]
+	\draw (0,0) rectangle (#1,#1) node[pos=.5] {\ifanswermode \color{\answer@color} #2 \fi};
+	\end{tikzpicture}%
+}%
 \newcounter{numparts}%
 \newcounter{curpart}%
 \newlength{\partlength}
