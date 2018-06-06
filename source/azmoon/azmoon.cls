@@ -264,9 +264,11 @@
 	\draw (0,0) circle (#1) node[pos=.5] {\ifanswermode \color{\answer@color} #2 \fi};
 	\end{tikzpicture}%
 }%
+\newlength\reclength%
 \newcommand{\fillinrec}[2][.5cm]{%
-	\begin{tikzpicture}[baseline={([yshift=-.9ex]current bounding box.center)}]
-	\draw (0,0) rectangle (#1,#1) node[pos=.5] {\ifanswermode \color{\answer@color} #2 \fi};
+	\setlength\reclength{#1}%
+	\begin{tikzpicture}[baseline={([yshift=-.2\reclength]current bounding box.center)}]
+	\draw (0,0) rectangle (\reclength,\reclength) node[pos=.5] {\ifanswermode \color{\answer@color} #2 \fi};
 	\end{tikzpicture}%
 }%
 \newcounter{numparts}%
