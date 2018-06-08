@@ -239,12 +239,11 @@
 در حال حاضر سه قالب tabling و classic و fantasy برای این کلاس طراحی شده است که برای تغییر قالب باید هنگام فراخوانی کلاس مقدار template را برابر قالب دلخواه خود قرار دهید.
 
 ### قالب فانتزی:
-
-![fantasy template page 1](https://raw.githubusercontent.com/mojtababaghban/azmoon/developing/example/fantasy-page-1.png "fantasy template page 1")
-![fantasy template page 2](https://raw.githubusercontent.com/mojtababaghban/azmoon/developing/example/fantasy-page-2.png "fantasy template page 2")
+![fantasy template page 1](example/fantasy-page-1.png)
+![fantasy template page 2](example/fantasy-page-2.png)
 ### قالب جدولی
-![tabling template page 1](https://raw.githubusercontent.com/mojtababaghban/azmoon/developing/example/tabling-page-1.png "tabling template page 1")
-![tabling template page 2](https://raw.githubusercontent.com/mojtababaghban/azmoon/developing/example/tabling-page-2.png "tablings template page 2")
+![tabling template page 1](example/tabling-page-1.png)
+![tabling template page 2](example/tabling-page-2.png)
 ### قالب کلاسیک
-![classic template page 1](https://raw.githubusercontent.com/mojtababaghban/azmoon/developing/example/classic-page-1.png "classic template page 1")
-![classic template page 2](https://raw.githubusercontent.com/mojtababaghban/azmoon/developing/example/classic-page-2.png "classic template page 2")
+![classic template page 1](example/classic-page-1.png)
+![classic template page 2](example/classic-page-2.png)
