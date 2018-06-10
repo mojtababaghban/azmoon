@@ -32,12 +32,13 @@
    - geometty
    - qrcode
    - dashrule
+
 ## نصب
 - ویندوز
 
   برای نصب در ویندوز دستورات زیر را به ترتیب در cmd وارد کنید.
 ```cmd
-  git clone https://github.com/mojtababaghban/azmoon.git
+  git clone https://gitlab.com/mojtab8286/azmoon.git
   mkdir %HOMEPATH%\texmf\tex\xelatex\azmoon
   copy azmoon\source\azmoon %HOMEPATH%\texmf\tex\xelatex\azmoon\
 ```
@@ -45,7 +46,7 @@
 
   برای نصب در یکی از توزیع‌های لینوکس دستورات زیر را به ترتیب در ترمینال وارد کنید.
 ```bash
-  git clone https://github.com/mojtababaghban/azmoon.git
+  git clone https://gitlab.com/mojtaba8286/azmoon.git
   mkdir -p ~/texmf/tex/xelatex
   cp -r azmoon/source/azmoon ~/texmf/tex/xelatex
 ```
