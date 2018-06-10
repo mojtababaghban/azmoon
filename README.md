@@ -38,7 +38,7 @@
 
   برای نصب در ویندوز دستورات زیر را به ترتیب در cmd وارد کنید.
 ```cmd
-  git clone https://gitlab.com/mojtab8286/azmoon.git
+  git clone https://gitlab.com/mojtaba8286/azmoon.git
   mkdir %HOMEPATH%\texmf\tex\xelatex\azmoon
   copy azmoon\source\azmoon %HOMEPATH%\texmf\tex\xelatex\azmoon\
 ```
