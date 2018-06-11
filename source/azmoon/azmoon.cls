@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{azmoon}[2017/12/27 version 0.1 by Mojtaba Baghban]
+\ProvidesClass{azmoon}[2018/06/11 version 0.1 by Mojtaba Baghban]
 
 \def\azmoonversion{0.1}
 
