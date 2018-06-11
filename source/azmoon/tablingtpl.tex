@@ -1,0 +1,251 @@
+\RequirePackage{dashrule}
+\RequirePackage{qrcode}
+
+\setlength\leftmg{.5cm}
+\setlength\rightmg{.5cm}
+\setlength\he@dsep{1.5pt}
+
+\newlength{\rightpad}
+\newlength{\leftpad}
+\newlength{\toppad}
+\newlength{\bottompad}
+\newlength{\rulewidth}
+\newlength{\numcolwidth}
+\newlength{\pointcolwidth}
+\setlength\rightpad{2pt plus 1pt minus 1pt}
+\setlength\leftpad{2pt plus 1pt minus 1pt}
+\setlength\toppad{2pt plus 1pt minus 1pt}
+\setlength\bottompad{2pt plus 1pt minus 1pt}
+\setlength\rulewidth{.4pt}
+\setlength\numcolwidth{.5cm}
+\setlength\pointcolwidth{.75cm}
+
+\pgfkeys{%
+	/frbox/.cd,
+	width/.code={\boxwidth#1},
+	rightpad/.code={\brightpad#1},
+	leftpad/.code={\bleftpad#1},
+	bottompad/.code={\bbottompad#1},
+	toppad/.code={\btoppad#1},
+	pad/.style={rightpad=#1,leftpad=#1,toppad=#1,bottompad=#1},
+	hpad/.style={rightpad=#1,leftpad=#1},
+	vpad/.style={toppad=#1,bottompad=#1},
+	rightrulewidth/.code={\rightbrulewidth#1},
+	leftrulewidth/.code={\leftbrulewidth#1},
+	toprulewidth/.code={\topbrulewidth#1},
+	bottomrulewidth/.code={\bottombrulewidth#1},
+	rulewidth/.style={rightrulewidth=#1,leftrulewidth=#1,toprulewidth=1,bottomrulewidth=#1},
+	hrulewidth/.style={rightrulewidth=#1,leftrulewidth=#1},
+	vrulewidth/.style={toprulewidth=1,bottomrulewidth=#1},
+}%
+\newcommand{\frbox}[2][{}]{%
+	\newdimen\btoppad%
+	\setlength\btoppad{2pt}%
+	\newdimen\bleftpad%
+	\setlength\bleftpad{2pt}%
+	\newdimen\brightpad%
+	\setlength\brightpad{2pt}%
+	\newdimen\bbottompad%
+	\setlength\bbottompad{2pt}%
+	\newdimen\rightbrulewidth%
+	\rightbrulewidth.4pt%
+	\newdimen\rightbrulewidth%
+	\rightbrulewidth.4pt%
+	\newdimen\leftbrulewidth%
+	\leftbrulewidth.4pt%
+	\newdimen\topbrulewidth%
+	\topbrulewidth.4pt%
+	\newdimen\bottombrulewidth%
+	\bottombrulewidth.4pt%
+	\newdimen\boxwidth%
+	\setlength\boxwidth{\linewidth}%
+	\pgfkeys{/frbox/.cd,#1}%
+	\newbox\innervbox%
+	\setbox\innervbox=\vbox{%
+		\hsize=\dimexpr \boxwidth-\rightbrulewidth-\leftbrulewidth
+		-\leftpad-\brightpad\relax%
+		\linewidth=\hsize%
+		#2%
+	}%
+	\newbox\inhbox%
+	\setbox\inhbox=\hbox to \dimexpr \boxwidth-\rightbrulewidth-\leftbrulewidth\relax{%
+		\hskip\brightpad\box\innervbox\hskip\bleftpad%
+	}%
+	\newbox\invbox%
+	\setbox\invbox=\vbox{%
+		\hsize=\dimexpr \boxwidth-\rightbrulewidth-\leftbrulewidth\relax
+		\vskip\bbottompad\box\inhbox\vskip\bbottompad%
+	}%
+	\newbox\outhbox%
+	\setbox\outhbox=\hbox to \boxwidth{%
+		\vrule width\leftbrulewidth\box\invbox\vrule width\rightbrulewidth%
+	}%
+	\newbox\totalvbox%
+	\setbox\totalvbox=\vbox{%
+		\hsize=\boxwidth%
+		\hrule height\topbrulewidth\box\outhbox\hrule height\bottombrulewidth%
+	}%
+	\box\totalvbox%
+}
+
+\newcommand{\makequesbox}[4][totalbox]{%
+	\def\totalbox{totalbox}%
+	\def\topbox{topbox}%
+	\def\bottombox{bottombox}%
+	\def\boxtype{#1}%
+	\newbox\rowbox%
+	\setbox\rowbox=\hbox{%
+		\vrule width\rulewidth%
+		\box#4%
+		\vrule width\rulewidth%
+		\hskip\leftpad\box#3\hskip\rightpad%
+		\vrule width\rulewidth%
+		\box#2%
+		\vrule width\rulewidth%
+	}%
+	\newbox\totalquesbox%
+	\setbox\totalquesbox=\vbox{%
+		\kern-\rulewidth%
+		\ifx\boxtype\totalbox%
+			\hrule width\linewidth height\rulewidth%
+		\fi
+		\ifx\boxtype\topbox%
+			\hrule width\linewidth height\rulewidth%
+		\fi
+		\ifx\boxtype\bottombox%
+			\vbox{\hdashrule{\linewidth}{\rulewidth}{2pt}}\nointerlineskip%
+		\fi
+		\box\rowbox%
+		\ifx\boxtype\totalbox%
+			\hrule width\linewidth height\rulewidth%
+		\fi
+		\ifx\boxtype\topbox%
+			\nointerlineskip\hdashrule{\linewidth}{\rulewidth}{2pt}%
+		\fi
+		\ifx\boxtype\bottombox%
+			\hrule width\linewidth height\rulewidth%
+		\fi
+	}%
+	\box\totalquesbox\nointerlineskip%
+}
+
+\newcommand{\question@tabling}[3]{%
+	\newbox\quesbox%
+	\setbox\quesbox=\vbox{%
+		\hsize=\dimexpr \linewidth-\numcolwidth-\pointcolwidth
+		-4\rulewidth-\rightpad-\leftpad\relax%
+		\setlength\linewidth{\hsize}%
+		\vskip\toppad#2\vskip\bottompad%
+	}%
+	\newbox\numbox%
+	\setbox\numbox=\vbox to \ht\quesbox{%
+		\hsize=\numcolwidth%
+		\vskip\toppad\hfil#1\hfil\vskip\bottompad\vfil%
+	}%
+	\newbox\pointbox%
+	\setbox\pointbox=\vbox to \ht\quesbox{%
+		\hsize=\pointcolwidth%
+		\vskip\toppad\hfil\ifx#3\@nnil\else$#3$\fi\hfil\vskip\bottompad\vfil%
+	}%
+	\newdimen\freespace%
+	\freespace=\dimexpr\pagegoal-\pagetotal-\pageshrink\relax%
+	\ifdim\dimexpr\ht\quesbox+\dp\quesbox+\rulewidth\relax<\freespace%
+		\makequesbox{\numbox}{\quesbox}{\pointbox}%
+	\else%
+		\newdimen\splitpos%
+		\splitpos=\dimexpr\freespace-\rulewidth\relax%
+		\newbox\quesbottombox%
+		\newbox\questopbox%
+		\newbox\cquesbox%
+		\loop%
+			\typeout{splitpos is \the\splitpos \the\dimexpr\ht\questopbox+\dp\questopbox+\rulewidth\relax \the\freespace}%
+			\setbox\cquesbox\copy\quesbox%
+			\setbox\questopbox\vsplit\cquesbox to\dimexpr\splitpos\relax%
+			\setbox\questopbox\vbox{\unvbox\questopbox}%
+			\advance \splitpos -3pt%
+			\ifnum\ifdim\dimexpr\ht\questopbox+\dp\questopbox+2\rulewidth\relax<\freespace 1\else\ifdim\splitpos<3pt 1\else0\fi\fi=1\else%
+		\repeat%
+		\ifdim\dimexpr\ht\questopbox+\dp\questopbox+\rulewidth\relax>\freespace%
+	\eject%
+	\typeout{topbox is \the\ht\questopbox and \the\dp\questopbox and quesbox is \the\ht\quesbox and freespace is \the\freespace}%
+		\makequesbox{\numbox}{\quesbox}{\pointbox}%
+	\else%
+	\typeout{questopbox height is \the\ht\questopbox and \the\dp\questopbox}%
+	\setbox\quesbottombox=\box\cquesbox
+	\newbox\numtopbox%
+	\setbox\numtopbox=\vbox to \ht\questopbox{%
+		\hsize=\numcolwidth\vskip\toppad\hfil #1\hfil\vskip\bottompad\vfil%
+	}%
+	\newbox\numbottombox%
+	\setbox\numbottombox=\vbox to \ht\quesbottombox{%
+		\hsize=\numcolwidth\hfil \hfil\vfil%
+	}%
+	\newbox\pointtopbox%
+	\setbox\pointtopbox=\vbox to \ht\questopbox{%
+		\hsize=\pointcolwidth\vskip\toppad\hfil \ifx#3\@nnil\else$#3$\fi\hfil\vskip\bottompad\vfil%
+	}%
+	\newbox\pointbottombox%
+	\setbox\pointbottombox=\vbox to \ht\quesbottombox{%
+		\hsize=\pointcolwidth\hfil \hfil\vfil%
+	}%
+	\makequesbox[topbox]{\numtopbox}{\questopbox}{\pointtopbox}%
+	\eject%
+	\makequesbox[bottombox]{\numbottombox}{\quesbottombox}{\pointbottombox}%
+	\fi%
+	\fi%
+}
+\newcommand{\section@tabling}[1]{%
+	\newbox\sectionbox%
+	\setbox\sectionbox=\vbox{%
+		\hsize=\dimexpr\linewidth-2\rulewidth\relax%
+		\vskip 2pt plus 1pt minus 1pt%
+		\hfil\textbf{#1}\hfil%
+		\vskip 2pt plus 1pt minus 1pt%
+	}%
+	\newbox\rowbox%
+	\setbox\rowbox=\vbox{%
+		\kern-\rulewidth%
+		\hrule width\linewidth height\rulewidth%
+		\vrule width\rulewidth\box\sectionbox\vrule width\rulewidth%
+		\hrule width\linewidth height\rulewidth%
+	}
+	\box\rowbox\nointerlineskip%
+}
+\def\fheader@tabling{%
+	\large%
+	\frbox{%
+	\begin{minipage}{.35\linewidth}%
+		‎\textbf{نام و نام‌خانوادگی: \student@name}
+		\par
+		‎\textbf{پایه \@grade\ شعبه \@branch}
+		\par
+		\textbf{\school@title\ \@school}%
+	\end{minipage}%
+	\begin{minipage}{.3\linewidth}%
+		\centering
+		\IfFileExists{logo.jpg}%
+		{\def\logo{logo.jpg}}%
+		{%
+			\def\logo{nologo.png}%
+			\ClassWarning{azmoon}{logo.jpeg file not exist.}{}%
+		}%
+		\includegraphics[width=3.5cm, height=1.5cm]{\logo}
+	\end{minipage}%
+	\begin{minipage}{.35\linewidth}%
+		\hfill\textbf{تاریخ ارزشیابی: \exam@date}
+		\par
+		\hfill‎\textbf{زمان پاسخگویی: \answer@time}
+		\par
+		\hfill\textbf{\total{numques} سوال در \pageref{LastPage} صفحه}%
+	\end{minipage}%
+	}%
+	\nointerlineskip\vskip-\baselineskip%
+}
+\def\mheader@tabling{%
+	\frbox{%
+		\textbf{نام و نام‌خانوادگی:}\hfill%
+		\textbf{صفحه \thepage\ از \pageref{LastPage}}%}
+	}%
+	\nointerlineskip%
+	\vskip-\baselineskip%
+}

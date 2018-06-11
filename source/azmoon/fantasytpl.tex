@@ -29,10 +29,15 @@ outer sep=3pt, outer ysep=3pt]
 	titlerule=0pt,
 	title={%
 		\hspace*{10pt}%
-		\tikz\node[rectangle,fill=white,rounded corners=3pt, draw=blue]{\vphantom{$#3$ نمره}#1};%
+		\tikz\node[rectangle,fill=white,rounded corners=3pt, draw=blue]{%
+			\ifx#3\@nnil\else\vphantom{$#3$ نمره}\fi%
+			#1};%
 		\hfill%
+		\ifx#3\@nnil\else%
 		\tikz\node[rectangle,fill=white,rounded corners=3pt, draw=blue]{\rl{$#3$ نمره}};%
-		\hspace*{10pt}
+		\hspace*{10pt}%
+%		\hspace*{10pt}
+		\fi%
 	},
 	colbacktitle=white,
 	coltitle=black
@@ -82,7 +87,13 @@ outer sep=3pt, outer ysep=3pt]
 			\end{minipage}%
 			\begin{minipage}[t]{.3\linewidth}
 			\centering
-			\raisebox{-.8\totalheight}{\includegraphics[width=4cm, height=1.7cm]{logo.jpeg}}
+					\IfFileExists{logo.jpg}%
+			{\def\logo{logo.jpg}}%
+			{%
+				\def\logo{nologo.png}%
+				\ClassWarning{azmoon}{logo.jpeg file not exist.}{}%
+			}%
+			\raisebox{-.8\totalheight}{\includegraphics[width=4cm, height=1.7cm]{\logo}}
 			\end{minipage}%
 			\begin{minipage}[t]{.35\linewidth}
 			\hfill\textbf{تاریخ ارزشیابی: \exam@date}

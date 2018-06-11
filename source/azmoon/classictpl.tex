@@ -1,21 +1,21 @@
 \newcommand{\question@classic}[3]{%
-	\ifx\#3\@nnil\else%
+	\ifx#3\@nnil\else%
 		\leavevmode\marginnote{\fbox{$#3$}}%
 	\fi%
 	\hspace{-.7cm}\makebox[.5cm][l]{#1.}\hspace{.2cm}#2%
-	\vspace{.3\baselineskip}\hrule%
+	\vspace{2pt plus 1pt minus 1pt}\hrule%
 }
 \newcommand{\section@classic}[1]{%
-	\vskip3pt
+	\vskip 2pt plus 1pt minus 1pt
 	\hfil
 	\textbf{#1}
 	\hfil
-	\vskip3pt
+	\vskip 2pt plus 1pt minus 1pt
 	\hrule
 }
 \def\fheader@classic{%
 	\large
-	\hrule\vspace{.1cm}%
+	\hrule\vspace{2pt}%
 	\begin{minipage}[t]{.35\linewidth}
 		‎\textbf{نام و نام‌خانوادگی: \student@name}
 		\par
@@ -25,7 +25,13 @@
 	\end{minipage}%
 	\begin{minipage}[t]{.3\linewidth}
 		\centering
-		\raisebox{-.8\totalheight}{\includegraphics[width=4cm, height=1.7cm]{logo.jpeg}}
+				\IfFileExists{logo.jpg}%
+		{\def\logo{logo.jpg}}%
+		{%
+			\def\logo{nologo.png}%
+			\ClassWarning{azmoon}{logo.jpeg file not exist.}{}%
+		}%
+		\raisebox{-.8\totalheight}{\includegraphics[width=4cm, height=1.7cm]{\logo}}
 	\end{minipage}%
 	\begin{minipage}[t]{.35\linewidth}
 		\hfill\textbf{تاریخ ارزشیابی: \exam@date}
@@ -47,12 +53,12 @@
 		\hfill
 		\textbf{رتبه در کلاس:} \rule{1cm}{.5pt} \textbf{از} \rule{1cm}{.5pt}
 	\end{minipage}%
-	\vspace{.1cm}
+	\vspace{2pt}
 	\hrule\vspace{-\baselineskip}
 }
 \def\mheader@classic{%
-	\hrule\vspace{.1cm}
+	\hrule\vspace{2pt}
 	\textbf{نام و نام‌خانوادگی:}\hfill \textbf{صفحه \thepage\ از \pageref{LastPage}}
-	\vspace{.1cm}
+	\vspace{2pt}
 	\hrule\vspace{-\baselineskip}
 }

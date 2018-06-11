@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{azmoon}[2017/12/27 version 0.1 by Mojtaba Baghban]
+\ProvidesClass{azmoon}[2018/06/11 version 0.1 by Mojtaba Baghban]
 
 \def\azmoonversion{0.1}
 
@@ -58,7 +58,8 @@
 
 \LoadClass[\f@ntsize]{article}
 
-\RequirePackage{azmoontools}
+\RequirePackage{amsmath}
+\RequirePackage{cancel}
 \RequirePackage{fancyhdr}
 \RequirePackage{enumitem}
 \RequirePackage{totcount}
@@ -263,6 +264,13 @@
 	\draw (0,0) circle (#1) node[pos=.5] {\ifanswermode \color{\answer@color} #2 \fi};
 	\end{tikzpicture}%
 }%
+\newlength\reclength%
+\newcommand{\fillinrec}[2][.5cm]{%
+	\setlength\reclength{#1}%
+	\begin{tikzpicture}[baseline={([yshift=-.2\reclength]current bounding box.center)}]
+	\draw (0,0) rectangle (\reclength,\reclength) node[pos=.5] {\ifanswermode \color{\answer@color} #2 \fi};
+	\end{tikzpicture}%
+}%
 \newcounter{numparts}%
 \newcounter{curpart}%
 \newlength{\partlength}
@@ -305,6 +313,18 @@
 	}
 	\newcommand{\choiceok}[1]{%
 	\@choice[t]{##1}
+	}
+	\begin{parts}[#1]
+	}
+	{%
+	\end{parts}
+}
+\newenvironment{truefalse}[1][1]{%
+	\newcommand{\itemt}[1]{%
+		\part{\tf[t] ##1}
+	}
+	\newcommand{\itemf}[1]{%
+		\part{\tf[f] ##1}
 	}
 	\begin{parts}[#1]
 	}
@@ -370,3 +390,26 @@
 	\endgroup
 	\fi%
 }
+\newcommand\pvector[1]{%
+	\renewcommand{\arraystretch}{.6666}
+	\begin{bmatrix}
+		#1
+	\end{bmatrix}
+}
+\newcommand\strikeoutup[2][]{%
+	\renewcommand{\arraystretch}{.1}
+	\begin{tabular}[b]{@{}c@{}} 
+		#1\\
+		\cancel{#2}
+	\end{tabular}
+	\renewcommand{\arraystretch}{1}
+}
+\newcommand\strikeoutdown[2][]{%
+	\renewcommand{\arraystretch}{.1}
+	\begin{tabular}[t]{@{}c@{}} 
+		\cancel{#2}\\
+		#1
+	\end{tabular}
+	\renewcommand{\arraystretch}{1}
+}
+\newcommand{\strikeout}[2][]{\strikeoutup[#1]{#2}}
